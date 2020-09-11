@@ -28,11 +28,12 @@ class HttpLoggingInterceptor : Interceptor {
             }
             body = buffer.readString(charset!!)
         }
-        Log.i(TAG,
+        Log.i(
+            TAG,
             " send request: \n method = ${request.method}"
-        + " \n url = ${request.url}"
-        + " \n request header = ${request.headers}"
-        + " \n request params = $body"
+                    + " \n url = ${request.url}"
+                    + " \n request header = ${request.headers}"
+                    + " \n request params = $body"
         )
         val startNs = System.nanoTime()
         val response = chain.proceed(request)
@@ -48,15 +49,17 @@ class HttpLoggingInterceptor : Interceptor {
         var charset: Charset? = UTF8
         val contentType = responseBody.contentType()
         contentType?.let {
-                charset = contentType.charset(UTF8)
+            charset = contentType.charset(UTF8)
         }
         rBody = buffer.clone().readString(charset!!)
 
-        Log.i(TAG,
+        Log.i(
+            TAG,
             "received : code = ${response.code}"
                     + "\n url = ${response.request.url}"
                     + "\n body = $body"
-                    + "\n response $rBody ")
+                    + "\n response $rBody "
+        )
 
         return response
     }
